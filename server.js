@@ -10,6 +10,15 @@ app.use(cors());
 const userController = require('./controllers/UserController')
 const foodTypeController = require('./controllers/FoodTypeController');
 const foodSizeController = require('./controllers/FoodSizeController');
+const tasteController = require('./controllers/TasteController');
+
+//
+// taste
+//
+app.put('/api/taste/update', (req, res) => tasteController.update(req, res));
+app.delete('/api/taste/remove/:id', (req, res) => tasteController.remove(req, res));
+app.get('/api/taste/list', (req, res) => tasteController.list(req, res));
+app.post('/api/taste/create', (req, res) => tasteController.create(req, res));
 
 //
 // foodSize
