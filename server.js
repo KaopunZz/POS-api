@@ -2,15 +2,28 @@ const express = require('express');
 const app = express();
 const bodyPaser = require('body-parser');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 app.use(bodyPaser.json());
 app.use(bodyPaser.urlencoded({ extended: true }))
 app.use(cors());
+app.use(fileUpload());
+app.use('/uploads', express.static('uploads'));
 
 const userController = require('./controllers/UserController')
 const foodTypeController = require('./controllers/FoodTypeController');
 const foodSizeController = require('./controllers/FoodSizeController');
 const tasteController = require('./controllers/TasteController');
+const foodController = require('./controllers/FoodController');
+
+//
+// food
+//
+app.put('/api/food/update', (req, res) => foodController.update(req, res));
+app.delete('/api/food/remove/:id', (req, res) => foodController.remove(req, res));
+app.get('/api/food/list', (req, res) => foodController.list(req, res));
+app.post('/api/food/upload', (req, res) => foodController.upload(req, res));
+app.post('/api/food/create', (req, res) => foodController.create(req, res));
 
 //
 // taste
