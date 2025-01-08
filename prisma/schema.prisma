@@ -40,6 +40,7 @@ model FoodSize {
   moneyAdded Int
   status String @default("use")
   FoodType FoodType @relation(fields: [foodTypeId], references: [id])
+  SaleTempDetails SaleTempDetail[]
 }
 
 model Taste {
@@ -49,6 +50,7 @@ model Taste {
   status String @default("use")
   foodTypeId Int
   FoodType FoodType @relation(fields: [foodTypeId], references: [id])
+  SaleTempDetails SaleTempDetail[]
 }
 
 model Food {
@@ -61,5 +63,25 @@ model Food {
   foodType String @default("food") // food, drink
   foodTypeId Int
   FoodType FoodType @relation(fields: [foodTypeId], references: [id])
+  SaleTempDetails SaleTempDetail[]
+}
+
+model SaleTemp {
+  id Int @id() @default(autoincrement())
+  userId Int
+  tableNo Int
+  SaleTempDetails SaleTempDetail[]
+}
+
+model SaleTempDetail {
+  id Int @id() @default(autoincrement())
+  saleTempId Int
+  foodId Int
+  tasteId Int
+  foodSizeId Int
+  Food Food @relation(fields: [foodId], references: [id])
+  Taste Taste @relation(fields: [tasteId], references: [id])
+  FoodSize FoodSize @relation(fields: [foodSizeId], references: [id])
+  SaleTemp SaleTemp @relation(fields: [saleTempId], references: [id])
 }
 
